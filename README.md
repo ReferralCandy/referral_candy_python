@@ -48,4 +48,10 @@ The ReferralCandy Python API client uses [requests](https://github.com/kennethre
     200
 
 ## Documentation
+
 [API documentation](http://www.referralcandy.com/api)
+
+## Credits
+
+Thank you for the inputs:
+* [Jian Wei Gan](https://github.com/ganjianwei)
