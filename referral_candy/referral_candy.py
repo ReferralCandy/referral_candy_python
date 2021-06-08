@@ -19,8 +19,8 @@ class ReferralCandy:
         return params
 
     def _signature(self, params):
-        collected_params = ''.join(('%s=%s' % (k,v)) for k, v in sorted(params.iteritems()))
-        return hashlib.md5(self.secret_key + collected_params).hexdigest()
+        collected_params = ''.join(('%s=%s' % (k,v)) for k, v in sorted(params.items()))
+        return hashlib.md5((self.secret_key + collected_params).encode()).hexdigest()
 
 def define_endpoint_fn(verb, ep):
     def endpoint_fn(self, params=None):
@@ -31,6 +31,6 @@ def define_endpoint_fn(verb, ep):
                                params=self._add_signature_to(params))
     setattr(ReferralCandy, ep, endpoint_fn)
 
-for verb, endpoints in _API_METHODS.iteritems():
+for verb, endpoints in _API_METHODS.items():
     for ep in endpoints:
         define_endpoint_fn(verb, ep)
