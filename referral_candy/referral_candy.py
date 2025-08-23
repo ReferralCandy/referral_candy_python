@@ -2,16 +2,19 @@ import hashlib
 import requests
 import time
 
-_DEFAULT_API_URL = 'https://my.referralcandy.com/api/v1/'
 _API_METHODS = {
-    'get' : ['verify', 'referrals', 'referrer', 'contacts'],
+    'get' : ['verify', 'referrals', 'referrer', 'contacts', 'campaigns'],
     'post': ['purchase', 'referral', 'signup', 'invite']
 }
 
 class ReferralCandy:
-    def __init__(self, access_id, secret_key):
+    def __init__(self, access_id, secret_key, api_version='v2'):
         self.access_id = access_id
         self.secret_key = secret_key
+        if api_version not in ['v1', 'v2']:
+            raise ValueError("api_version must be 'v1' or 'v2'")
+        self.api_version = api_version
+        self.api_url = f'https://my.referralcandy.com/api/{api_version}/'
 
     def _add_signature_to(self, params):
         params.update({'accessID': self.access_id, 'timestamp': int(time.time())})
@@ -27,7 +30,7 @@ def define_endpoint_fn(verb, ep):
         if params is None:
             params = {}
         http_method_fn = getattr(requests, verb)
-        return http_method_fn("%s%s.json" % (_DEFAULT_API_URL, ep),
+        return http_method_fn("%s%s.json" % (self.api_url, ep),
                                params=self._add_signature_to(params))
     setattr(ReferralCandy, ep, endpoint_fn)
 
