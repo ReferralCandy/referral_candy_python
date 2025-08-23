@@ -11,7 +11,7 @@
 Initialize a client with your ReferralCandy credentials
 
     >>> from referral_candy import ReferralCandy
-    >>> # Default to API v1
+    >>> # Default to API v2
     >>> rc = ReferralCandy(access_id="YOUR_ACCESS_ID", secret_key="YOUR_SECRET_KEY")
     >>>
     >>> # use API v1

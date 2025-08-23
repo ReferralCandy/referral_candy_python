@@ -8,7 +8,7 @@ _API_METHODS = {
 }
 
 class ReferralCandy:
-    def __init__(self, access_id, secret_key, api_version='v1'):
+    def __init__(self, access_id, secret_key, api_version='v2'):
         self.access_id = access_id
         self.secret_key = secret_key
         if api_version not in ['v1', 'v2']:
